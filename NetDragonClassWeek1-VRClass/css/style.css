@@ -46,7 +46,19 @@ header{
 	background: #fff;
 	height: 64px;
 }
-#user{
+.user-info{
+	width: calc(( 100% - 265px ) * 0.86);
+	height: 64px;
+	
+}
+
+.user-info-detail,.user-info-detail span{
 	color: #a0a0a0;
 	font-size: 14px;
+	line-height: 30px;
+}
+.user-info-detail{
+	float: left;
+	width: 140px;
+	height: 30px;
 }
