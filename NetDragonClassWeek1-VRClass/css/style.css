@@ -34,6 +34,7 @@ header{
     justify-content: center;
     align-items: center;
     float: left;
+    user-select:none;
 }
 .logo img{
 	width: 46px;
@@ -52,7 +53,7 @@ header{
 }
 .user-info{
 	height: 64px;
-	margin-left: 50px;
+	margin-left: 40px;
 }
 .user-info-detail,.user-info-detail span{
 	color: #a0a0a0;
@@ -62,6 +63,9 @@ header{
 .user-info-detail{
 	float: left;
 	line-height: 64px;
+	width: 128px;
+	position: relative;
+	padding-left: 10px;
 }
 .btn-set,.btn-set span{
 	color: #16a4fa;
