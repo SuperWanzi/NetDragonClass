@@ -329,11 +329,29 @@ header{
 
 .page-list{
 	overflow: hidden;
+	display: flex;
+	justify-content: center;
 }
-.page-select{
+.page-item{
 	float: left;
 }
-
+.page-select{
+	display: block;
+	width: 40px;
+	height: 40px;
+	border-radius: 5px;
+	margin: 5px;
+	background: #e7e7e7;
+	text-align: center;
+	line-height: 40px;
+	text-decoration: none;
+	font-size: 16px;
+	color: #4D5B67;
+}
+.page-select.active,.page-select:hover{
+	background: #16a4fa;
+	color: #fff;
+}
 body{
 		min-height: 988px;
 }
