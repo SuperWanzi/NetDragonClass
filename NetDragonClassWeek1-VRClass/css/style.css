@@ -14,10 +14,11 @@
 }
 html,body{
 	width: 100%;
+	min-width: 980px;
 	height: 100%;
 	background: #edf2f6;
 }
-
+button{cursor: pointer;}
 /*header头部部分*/
 header{
 	height: 64px;
@@ -78,7 +79,6 @@ header{
 	right: 50px;
 	background: none;
 	border: 2px solid #16a4fa;
-	cursor: pointer;
 	outline: none;
 }
 
@@ -132,6 +132,105 @@ header{
     background: -o-linear-gradient(right,#1cc6fd,#16a4fa); /* Opera 11.1 - 12.0 */
     background: -moz-linear-gradient(right,#1cc6fd,#16a4fa); /* Firefox 3.6 - 15 */
     background: linear-gradient(to right,#1cc6fd,#16a4fa);
-    
+}
+/*导航栏及菜单*/
+#detail-nav{
+	height: 52px;
+	background: #fafbfd;
+	border: 1px solid #e2e2e2;
+	border-left: none;	
+	border-right: none;
+	overflow: hidden;
+	position: relative;
+}
+.nav-item{
+	float: left;
+	padding: 0 40px;
+	width: 180px;
+	height: 50px;
+}
+.nav-item p{
+	color: #4d5b67;
+	font-size: 18px;
+	width: 100px;
+	text-align: center;
+	line-height: 52px;
+}
+.nav-item.active p{
+	color: #3a98d8;
+	line-height: 52px;
+	height: 50px;
+	border-bottom: 2px solid #3a98d8;
 }
 
+.btn-works,.btn-works span{
+	color: #FFFFFF;
+}
+.btn-works{
+	margin: calc( ( 52px - 34px ) / 2) 10px;
+	width: 120px;
+	height: 34px;
+	font-size: 16px;
+	background: -webkit-linear-gradient(#1cc6fd,#16a4fa); /* Safari 5.1 - 6.0 */
+    background: -o-linear-gradient(#1cc6fd,#16a4fa); /* Opera 11.1 - 12.0 */
+    background: -moz-linear-gradient(#1cc6fd,#16a4fa); /* Firefox 3.6 - 15 */
+    background: linear-gradient(#1cc6fd,#16a4fa);
+    border: 1px solid #1293f9;
+}
+
+#btn-group{
+	position: absolute;
+	right: 40px;
+}
+
+.user-search-box{
+	position: relative;
+	height: 84px;
+}
+#user-search{
+	position: absolute;
+	right: 120px;
+	height: 34px;
+	margin: calc( ( 84px - 34px ) / 2 );
+}
+#search-text,#btn-search{
+	height: 34px;
+}
+#search-text{
+	width: 302px;
+	font-size: 14px;
+	padding: 8px;
+	padding-right: 21px;
+	border:1px solid #dadada;
+	outline: none;
+}
+#search-text::-webkit-input-placeholder{
+	color: #dadada;
+}
+#search-text::-moz-placeholder{ /* Mozilla Firefox 19+ */
+	color: #dadada;
+}
+#search-text::-ms-input-placeholder{  /* Internet Explorer 10-11 */ 
+	color: #dadada;
+}
+#search-text::placeholder{
+	color: #dadada;
+}
+#user-search span{
+	color: #dadada;
+	font-size: 16px;
+	position: absolute;
+	left: 280px;
+	top: 8px;
+}
+#btn-search{
+	width: 80px;
+	color: #fff;
+	font-size: 16px;
+	margin-left: 12px;
+	background: -webkit-linear-gradient(#1cc6fd,#16a4fa); /* Safari 5.1 - 6.0 */
+    background: -o-linear-gradient(#1cc6fd,#16a4fa); /* Opera 11.1 - 12.0 */
+    background: -moz-linear-gradient(#1cc6fd,#16a4fa); /* Firefox 3.6 - 15 */
+    background: linear-gradient(#1cc6fd,#16a4fa);
+    border: 1px solid #1293f9;
+}
