@@ -133,6 +133,11 @@ header{
     background: -moz-linear-gradient(right,#1cc6fd,#16a4fa); /* Firefox 3.6 - 15 */
     background: linear-gradient(to right,#1cc6fd,#16a4fa);
 }
+
+#detail-contents{
+	float: left;
+	width: calc(100% - 265px);
+}
 /*导航栏及菜单*/
 #detail-nav{
 	height: 52px;
@@ -149,14 +154,16 @@ header{
 	width: 180px;
 	height: 50px;
 }
-.nav-item p{
+.nav-item a{
 	color: #4d5b67;
 	font-size: 18px;
 	width: 100px;
 	text-align: center;
 	line-height: 52px;
+	text-decoration: none;
+	display: inline-block;
 }
-.nav-item.active p{
+.nav-item.active a{
 	color: #3a98d8;
 	line-height: 52px;
 	height: 50px;
@@ -233,4 +240,110 @@ header{
     background: -moz-linear-gradient(#1cc6fd,#16a4fa); /* Firefox 3.6 - 15 */
     background: linear-gradient(#1cc6fd,#16a4fa);
     border: 1px solid #1293f9;
+}
+
+.work-list{
+	overflow: hidden;
+}
+.work-item{
+	width: 280px;
+	height: 244px;
+	margin: 0 22px;
+	float: left;
+}
+.item-view{
+	width: 280px;
+	height: 156px;
+	overflow: hidden;
+	position: relative;
+}
+.item-view img{
+	width: 280px;
+	height: 156px;
+}
+.author-info{
+	position: absolute;
+	bottom: 0;
+	height: 26px;
+	overflow: hidden;
+	width: 280px;
+	background-color:#000;
+	background: rgba(0,0,0,0.6);
+}
+.author-info span{
+	display: block;
+	float: left;
+	line-height: 26px;
+	font-size: 14px;
+	color: #bcbcbc;
+}
+.author-info .fa-user-circle-o{
+	width: 20px;
+	text-align: center;
+	margin-left: 10px;
+}
+.author-name{
+	width: 100px;
+    overflow: hidden;
+	text-overflow:ellipsis;
+	white-space: nowrap;
+	line-height: 26px;
+	margin-left: 6px;
+}
+.create-time{
+	margin-left: 5px;
+}
+.item-menu{
+	height: 42px;
+	background: #fff;
+	padding: 0 5px;
+}
+
+.menu-btn{
+	float: left;
+	text-decoration: none;
+}
+.menu-btn span,.menu-btn p{
+	width: 90px;
+	color: #a0a0a0;
+	text-align: center;
+}
+.menu-btn span{
+	font-size: 18px;
+	line-height: 24px;
+}
+.menu-btn p{
+	font-size: 12px;
+	line-height: 16px;
+}
+.menu-btn.active span,.menu-btn.active p{
+	color: #f5a425;
+}
+.works-title{
+	color: #4d5b67;
+	font-size: 16px;
+	text-align: center;
+	line-height: 32px;
+}
+
+
+.page-list{
+	overflow: hidden;
+}
+.page-select{
+	float: left;
+}
+
+body{
+		min-height: 988px;
+}
+@media only screen and (min-width: 1366px) {
+	body{
+		min-height: 988px;
+	}
+}
+@media only screen and (min-width: 1980px) {
+	body{
+		min-height: 988px;
+	}
 }
