@@ -6,6 +6,11 @@
 		<meta name="viewport" content="width=device-width,initial-scale=1,minimum-scale=1,maximum-scale=1,user-scalable=no" />
 		<link rel="stylesheet" type="text/css" href="css/font-awesome.min.css"/>
 		<link rel="stylesheet" type="text/css" href="css/style.css"/>
+		<style type="text/css">
+			body{
+				min-height: 700px;
+			}
+		</style>
 	</head>
 	
 	<body>
@@ -80,10 +85,10 @@
 					<div id="detail-nav">
 						<ul id="nav-list">
 							<li class="nav-item active">
-								<p>我的作品</p>
+								<a href="#">我的作品</a>
 							</li>
 							<li class="nav-item">
-								<p>班级作品</p>
+								<a href="#">班级作品</a>
 							</li>
 						</ul>
 						<div id="btn-group">
@@ -105,10 +110,40 @@
 						</div>
 					</div>
 					<div class="work-list">
-						<div class="work-item">
-							
+						<div id="emptytip" style="display:flex;flex-direction:column;justify-content: center;align-items: center;width: 100%;min-height: 400px;">
+							<img src="img/vr.png" width="120px" height="120px" style="opacity: 0.4;"/>
+							<h3 style="color:#a4afc3;font-size: 24px;margin-top: 10px;">暂无可用资源</h3>
 						</div>
 					</div>
+					<ul class="page-list">
+						<li class="page-item">
+							<a href="#" class="page-select">&lt;</a>
+						</li>
+						<li class="page-item">
+							<a href="#" class="page-select">1</a>
+						</li>
+						<li class="page-item">
+							<a href="#" class="page-select">2</a>
+						</li>
+						<li class="page-item">
+							<a href="#" class="page-select active">3</a>
+						</li>
+						<li class="page-item">
+							<a href="#" class="page-select">4</a>
+						</li>
+						<li class="page-item">
+							<a href="#" class="page-select">5</a>
+						</li>
+						<li class="page-item">
+							<a href="#" class="page-select">...</a>
+						</li>
+						<li class="page-item">
+							<a href="#" class="page-select">100</a>
+						</li>
+						<li class="page-item">
+							<a href="#" class="page-select">&gt;</a>
+						</li>
+					</ul>
 				</div>
 			</div>
 		</div>
