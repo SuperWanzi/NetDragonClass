@@ -355,6 +355,9 @@ header{
 body{
 		min-height: 988px;
 }
+body.hide{
+	overflow: hidden;
+}
 @media only screen and (min-width: 1366px) {
 	body{
 		min-height: 988px;
@@ -364,4 +367,75 @@ body{
 	body{
 		min-height: 988px;
 	}
+}
+
+/*模态框*/
+
+/*背景半透明 防止点击页面元素*/
+#background-fex{
+	width: 100%;
+	height: 100%;
+	position:fixed;
+	top: 0;
+	left: 0;
+	background-color: #000000;
+	opacity: 0.5;
+	background: rgba(0,0,0,0.5);
+	overflow: hidden;
+/*	display: none;*/
+}
+
+/*模态框*/
+.modal-submit{
+	display: flex;
+	align-items: center;
+	justify-content: center;
+	position: absolute;
+	top: 0;
+	left: 0;
+	width: 100%;
+	height: 100%;
+}
+.modal-submit-box{
+	width: 60%;
+	height: 40%;
+	min-width: 640px;
+	min-height: 520px;
+	/*background: #ffffff;*/
+	position: relative;
+}
+.modal-submit-main{
+	height: 100%;
+}
+#modal-main-title{
+	height: 42px;
+	line-height: 42px;
+	background: #17a9fa;
+	font-size: 18px;
+	color: #eff1f1;
+	text-align: center;
+	/*IE9+、Firefox 4+、Chrome、Safari 5+ 以及 Opera 支持 。*/
+	border-top-left-radius: 10px;
+	border-top-right-radius: 10px;
+}
+#modal-main-content{
+	height: calc(100% - 42px);
+	background: #FFFFFF;
+}
+.sub-main-input{
+	width: 80%;
+	margin: 0 10%;
+	height: 50px;
+	line-height: 50px;
+	color: #4d5b67;
+}
+.sub-main-input span,.sub-main-input input{
+	color: #4d5b67;
+	font-size: 16px;
+}
+.input-title{
+	display: inline-block;
+	
+	width: 120px;
+	text-align: right;
 }
