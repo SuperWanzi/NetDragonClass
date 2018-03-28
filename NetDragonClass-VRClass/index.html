@@ -395,20 +395,28 @@
 						<div class="sub-main-input">
 							<span class="input-title">配图</span>
 							<span class="input-text"><input type="text" name="image" id="ip-image"  
-							 placeholder="点击上传图片"/></span>
+							 placeholder="点击上传图片" readonly/></span>
 							<input style="display: none;" type="file" name="image-file" id="ipf-image"/>
 						</div>
 						<div class="sub-main-input">
 							<span class="input-title">简介</span>
 							<span class="input-text">
-								<textarea name="" id="">
-									
-								</textarea>
+								<textarea name="about" id="ta-about"></textarea>
 							</span>
+						</div>
+						
+						<div class="sub-main-submit">
+							<input type="submit" name="fm-submit" id="fm-submit" value="确定提交" 
+								onclick="return false;"/>
+							<p>提交后显示在班级作品区</p>
 						</div>
 					</form>
 				</div>
 				
+				
+				<div class="modal-submit-author">
+					
+				</div>
 			</div>
 		</div>
 	</body>
