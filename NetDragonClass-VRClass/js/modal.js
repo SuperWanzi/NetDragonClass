@@ -13,7 +13,6 @@ function hideModal(obj){
 	obj.css("display","none");
 }
 
-
 var authorData=["李明","张三丰","吴老二","李四","周杰伦","斯琴","王小二"];
 var author=[];
 
@@ -38,7 +37,7 @@ function showSelect(){
 }
 
 function printAuthor(){
-	$(".input-author").html();
+	$(".input-author").html("");
 	var authorlist=document.getElementsByClassName("input-author")[0];
 	for(var i in author){
 		var authorItem=document.createElement("div");
@@ -49,7 +48,7 @@ function printAuthor(){
 		spanname.innerHTML=author[i];
 		authorItem.appendChild(spanname);
 		var spanico=document.createElement("span");
-		spanico.className="fa fa-times";
+		spanico.className="fa fa-times remove-authot";
 		authorItem.appendChild(spanico);
 		
 		authorlist.appendChild(authorItem);

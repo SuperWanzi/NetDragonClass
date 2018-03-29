@@ -91,3 +91,25 @@ $(document).on("click","#add-confirm",function(){
 	printAuthor();
 	$(this).parents(".modal-submit").find(".closeModal").click();
 })
+
+$(document).on("click","#fm-submit",function(){
+	$(this).parents(".modal-submit").find(".closeModal").click();
+})
+
+$(document).on("click",".remove-authot",function(){
+	
+	var index=-1;
+	for(var i in author){
+		if($(this).prev().text().indexOf(author[i])>=0){
+			index=i;
+		}
+	}
+	if(index>=0){
+		authorData.push(author[index]);
+		author.splice(index,1);
+		showSelect();
+		printAuthor();
+	}else{
+		alert("没有选择或者为空");
+	}
+})
