@@ -494,6 +494,20 @@ body.hide{
 	line-height: 18px;
 	cursor: pointer;
 }
+#input-a{
+	position: relative;
+}
+#add-author{
+	position: absolute;
+	width: 30px;
+	height: 30px;
+	top: 30px;
+	right: 10px;
+}
+#add-author span{
+	font-size: 26px;
+	cursor: pointer;
+}
 #ip-image{
 	cursor: pointer;
 }
