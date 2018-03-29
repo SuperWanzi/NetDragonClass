@@ -384,7 +384,6 @@ body.hide{
 	overflow: hidden;
 	display: none;
 	z-index: 0;
-
 }
 
 /*模态框*/
@@ -397,7 +396,6 @@ body.hide{
 	left: 0;
 	width: 100%;
 	height: 100%;
-	
 }
 .modal-submit-box{
 	width: 50%;
@@ -420,6 +418,16 @@ body.hide{
 	/*IE9+、Firefox 4+、Chrome、Safari 5+ 以及 Opera 支持 。*/
 	border-top-left-radius: 10px;
 	border-top-right-radius: 10px;
+	position: relative;
+}
+.closeModal{
+	position: absolute;
+	right: 10px;
+	top: 0;
+	color: #fff;
+	line-height: 42px;
+	font-size: 26px;
+	cursor: pointer;
 }
 .modal-main-content{
 	height: calc(100% - 42px);
@@ -618,4 +626,10 @@ body.hide{
 
 #modal-main,#modal-author{
 	display: none;
+}
+#modal-main{
+	z-index: 1;
+}
+#modal-author{
+	z-index: 3;
 }
