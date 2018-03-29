@@ -373,10 +373,10 @@
 			<div class="modal-submit-box">
 				
 				<div id="modal-submit-main">
-					<div id="modal-main-title">
+					<div class="modal-main-title" >
 						新建作品
 					</div>
-					<form id="modal-main-content" action="" method="post">
+					<form class="modal-main-content" action="" method="post">
 						<div class="sub-main-input">
 							<span class="input-title">资源名称</span>
 							<span class="input-text"><input type="text" name="name" id="ip-name" 
@@ -414,13 +414,46 @@
 						</div>
 					</form>
 				</div>
-				
-				
-				<div class="modal-submit-author">
-					
-				</div>
+			
 			</div>
 		</div>
+		
+		<div class="modal-submit">
+			<div class="modal-submit-box">
+				<div id="modal-submit-author">
+					<div class="modal-main-title">
+						班级成员
+					</div>
+					<div class="modal-main-content">
+						<div class="left-select">
+							<div class="serch-student">
+								<input type="text" id="in-search-stu" placeholder="搜索人名" />
+								<span class="fa fa-search"></span>
+							</div>
+							<select name="" class="select-stu" multiple="multiple">
+								<option value="">李明</option>
+								<option value="">吴老二</option>
+								<option value="">斯琴高娃</option>
+								<option value="">王宝强</option>
+							</select>
+						</div>
+						<div class="menu-ctrl">
+							<button type="button" class="btn-crtl active" id="btn-add">添加</button>
+							<button type="button" class="btn-crtl" id="btn-remove">删除</button>
+						</div>
+						<div class="right-select">
+							<select name="" class="select-stu" multiple="multiple">
+								<option value="">李明</option>
+							</select>
+						</div>
+						<div class="sub-main-submit author">
+							<button type="button" class="btn-crtl active">确定</button>
+						</div>
+					</div>
+				</div>
+			</div>	
+		</div>
+		
 	</body>
 	
 </html>

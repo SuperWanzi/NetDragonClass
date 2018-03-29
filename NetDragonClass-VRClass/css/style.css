@@ -407,7 +407,7 @@ body.hide{
 #modal-submit-main{
 	height: 100%;
 }
-#modal-main-title{
+.modal-main-title{
 	height: 42px;
 	line-height: 42px;
 	background: #17a9fa;
@@ -418,7 +418,7 @@ body.hide{
 	border-top-left-radius: 10px;
 	border-top-right-radius: 10px;
 }
-#modal-main-content{
+.modal-main-content{
 	height: calc(100% - 42px);
 	background: #FFFFFF;
 	padding-top: 6px;
@@ -522,4 +522,93 @@ body.hide{
 	font-size: 14px;
 	line-height: 30px;
 	margin-top: 6px;
+}
+
+#modal-submit-author{
+	position: absolute;
+	width: 400px;
+	height: 520px;
+	/*background: #fff;*/
+	top: -60px;
+	left: 20px;
+}
+.left-select,.right-select{
+	width: 140px;
+	float: left;
+}
+.menu-ctrl{
+	float: left;
+	width: 120px;
+}
+.serch-student{
+	position: relative;
+	margin: 0 5px;
+}
+.serch-student input{
+	border: 1px #d0d0d0 solid;
+	font-size: 14px;
+	line-height: 32px;
+	width: 130px;
+	height: 32px;
+	outline: none;
+	padding: 0 10px;
+}
+.serch-student span{
+	line-height: 30px;
+	position: absolute;
+	right: 10px;
+	top: 0;
+	font-size: 14px;
+	color: #d0d0d0;
+}
+.select-stu{
+	border: solid 1px #d0d0d0;
+	outline: none;
+	appearance:none;
+  	-moz-appearance:none;
+  	-webkit-appearance:none;
+  	width: 130px;
+  	margin: 0 5px;
+  	font-size: 14px;
+  	color: #4d5b67;
+  	line-height: 32px;
+}
+.select-stu option{
+	margin: 6px 0;
+}
+.left-select .select-stu{
+	height: 360px;
+}
+.right-select .select-stu{
+	height: 400px;
+	margin: 0;
+}
+.menu-ctrl{
+	height: 100%;
+	display: flex;
+	justify-content: center;
+	align-items: center;
+	flex-direction: column;
+}
+.btn-crtl{
+	width: 50px;
+	height: 30px;
+	background: #aab5c7;
+	color: #fff;
+	font-size: 16px;
+	border: none;
+	border-radius: 2px;
+	margin: 6px 0;
+	outline: none;
+}
+.btn-crtl.active{
+	background: #16a6fa;
+}
+.sub-main-submit.author{
+	height: 60px;
+	bottom: 0;
+}
+.sub-main-submit.author button{
+	margin-left: 260px;
+	outline: none;
 }
