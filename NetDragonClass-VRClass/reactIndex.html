@@ -12,16 +12,6 @@
 	</head>
 	<body>
 		
-		<!--页面内容部分-->
-		<div class="page-contents-wrap">
-				
-			<!--侧边导航栏-->
-			
-			
-			<!--详细内容-->
-			
-		</div>
-		
 		<div id="background-fex"></div>
 		
 		<div class="modal-submit" id="modal-main">
@@ -113,6 +103,21 @@
 	
 	</body>
 </html>
+<script type="text/javascript">
+	function setNavHeight(){
+		var contentHeight=document.getElementsByClassName("page-contents-wrap")[0].offsetHeight;
+		var nav=document.getElementsByClassName("left-sidebar")[0];
+		nav["style"]["height"]=contentHeight+"px";
+		console.log("!")
+	}
+	window.onload=function(){
+		setNavHeight();
+		window.onresize = function(){
+			setNavHeight();
+		};
+	}
+</script>
+
 <script type="text/babel">
 	var WorkItem = React.createClass({
 		getItemContent: function() {
@@ -215,13 +220,37 @@
 	var SiderBar=React.createClass({
 		getInitialState:function(){
 			return ({
-				items: ["全部课程","课程一：静夜思","课程二：红军长征",
-						   "课程三：活字印刷术","课程四：郑和下西洋","课程五：梦想之家"]
+				items: [{"全部课程":false},
+				{"课程一：静夜思":false},
+				{"课程二：红军长征":false},
+				{"课程三：活字印刷术":false},
+				{"课程四：郑和下西洋":false},
+				{"课程五：梦想之家":false}]
 			})
 		},
+		changeState:function(i){
+			var arr=this.state.items;
+			for(var item in arr){
+				for(var val in arr[item]){
+					arr[item][val]=false;
+				}
+			}
+			for(var val in arr[i]){
+				arr[i][val]=true;
+			}
+			this.setState({items:arr});
+		},
 		eachItem:function(title,i){
+			var text="";
+			var state=false;
+			for(var val in title){
+				text=val;
+				state=title[val];
+			};
 			return (
-				<SiderBarItem key={i} index={i}>{title}</SiderBarItem>
+				<SiderBarItem key={i} index={i} isActive={state}
+					changeState={this.changeState}
+				>{text}</SiderBarItem>
 			)
 		},
 		render:function(){
@@ -243,9 +272,12 @@
 		getInitialState:function(){
 			return ({isActive:false})
 		},
+		active:function(){
+			this.props.changeState(this.props.index);
+		},
 		render:function(){
 			return (
-				<li className={this.state.isActive?"left-sidebar-item active":"left-sidebar-item"}>
+				<li className={this.props.isActive?"left-sidebar-item active":"left-sidebar-item"} onClick={this.active}>
 					<span className="fa fa-book"></span>
 					{this.props.children}
 				</li>
@@ -258,34 +290,8 @@
 				<div id="detail-contents">
 					{/*详细信息顶部*/}
 					<div id="detail-contents-top">
-						<div id="detail-nav">
-							<ul id="nav-list">
-								<li className="nav-item active">
-									<a href="#">我的作品</a>
-								</li>
-								<li className="nav-item">
-									<a href="#">班级作品</a>
-								</li>
-							</ul>
-							<div id="btn-group">
-								<button type="button" className="btn-works" id="submit-works">
-									<span className="fa fa-upload"></span>
-									提交作品
-								</button>
-								<button type="button" className="btn-works" id="create-works">
-									<span className="fa fa-plus-circle"></span>
-									新建作品
-								</button>
-							</div>			
-						</div>
-						
-						<div className="user-search-box">
-							<div id="user-search">
-								<input type="text" name="search-text" id="search-text" placeholder="搜索资源"/>
-								<span className="fa fa-search"></span>
-								<button type="button" id="btn-search">搜索</button>
-							</div>
-						</div>
+						<DetailNav />
+						<SearchItem />
 						<div id="work-list">
 							<WorkItem />
 						</div>
@@ -323,12 +329,50 @@
 				</div>
 			)
 		}
-});
-    var bodyStyle={
-    	"height":"100%"
-    };
+	});
+	var DetailNav=React.createClass({
+		render:function(){
+			return (
+				<div id="detail-nav">
+					<ul id="nav-list">
+						<li className="nav-item active">
+							<a href="#">我的作品</a>
+						</li>
+						<li className="nav-item">
+							<a href="#">班级作品</a>
+						</li>
+					</ul>
+					<div id="btn-group">
+						<button type="button" className="btn-works" id="submit-works">
+							<span className="fa fa-upload"></span>
+							提交作品
+						</button>
+						<button type="button" className="btn-works" id="create-works">
+							<span className="fa fa-plus-circle"></span>
+							新建作品
+						</button>
+					</div>			
+				</div>
+			)
+		}
+	});
+	var SearchItem=React.createClass({
+		render:function(){
+			return (
+				<div className="user-search-box">
+					<div id="user-search">
+						<input type="text" name="search-text" id="search-text" placeholder="搜索资源" />
+						<span className="fa fa-search"></span>
+						<button type="button" id="btn-search">搜索</button>
+					</div>
+				</div>
+			)
+		}
+	})
+	
+
 	ReactDOM.render(
-		<div style={bodyStyle} id="body">
+		<div id="body">
 			<Header />
 			<Page />
 		</div>,

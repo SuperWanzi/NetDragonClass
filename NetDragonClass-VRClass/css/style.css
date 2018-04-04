@@ -16,6 +16,7 @@ html,body{
 	width: 100%;
 	min-width: 980px;
 	height: 100%;
+	min-height: 620px;
 	background: #edf2f6;
 }
 button{cursor: pointer;}
@@ -82,10 +83,13 @@ header{
 	outline: none;
 }
 
+#body{
+	height: 100%;
+}
 /*页面内容*/
 .page-contents-wrap{
-	height: calc(100% - 64px);
-	/*min-height: auto;*/
+	min-height: calc(100% - 64px);
+	overflow: hidden;
 }
 /*侧边导航栏*/
 .left-sidebar{
@@ -352,13 +356,11 @@ header{
 	background: #16a4fa;
 	color: #fff;
 }
-body{
-		min-height: 988px;
-}
+
 body.hide{
 	overflow: hidden;
 }
-@media only screen and (min-width: 1366px) {
+/*@media only screen and (min-width: 1366px) {
 	body{
 		min-height: 988px;
 	}
@@ -367,7 +369,7 @@ body.hide{
 	body{
 		min-height: 988px;
 	}
-}
+}*/
 
 /*模态框*/
 
