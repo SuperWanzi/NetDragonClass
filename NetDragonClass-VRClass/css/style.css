@@ -242,7 +242,7 @@ header{
     border: 1px solid #1293f9;
 }
 
-.work-list{
+#work-list{
 	overflow: hidden;
 }
 .work-item{
