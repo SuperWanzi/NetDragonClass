@@ -11,7 +11,7 @@
     	<script src="js/lib/browser.min.js"></script>
 	</head>
 	<body>
-		<!--header部分-->
+		
 		<!--页面内容部分-->
 		<div class="page-contents-wrap">
 				
@@ -19,71 +19,7 @@
 			
 			
 			<!--详细内容-->
-			<div id="detail-contents">
-				<!--详细信息顶部-->
-				<div id="detail-contents-top">
-					<div id="detail-nav">
-						<ul id="nav-list">
-							<li class="nav-item active">
-								<a href="#">我的作品</a>
-							</li>
-							<li class="nav-item">
-								<a href="#">班级作品</a>
-							</li>
-						</ul>
-						<div id="btn-group">
-							<button type="button" class="btn-works" id="submit-works">
-								<span class="fa fa-upload"></span>
-								提交作品
-							</button>
-							<button type="button" class="btn-works" id="create-works">
-								<span class="fa fa-plus-circle"></span>
-								新建作品
-							</button>
-						</div>			
-					</div>
-					<div class="user-search-box">
-						<div id="user-search">
-							<input type="text" name="search-text" id="search-text" placeholder="搜索资源"/>
-							<span class="fa fa-search"></span>
-							<button type="button" id="btn-search">搜索</button>
-						</div>
-					</div>
-					<div id="work-list">
-						
-					</div>
-					<ul class="page-list">
-						<li class="page-item">
-							<a href="#" class="page-select">&lt;</a>
-						</li>
-						<li class="page-item">
-							<a href="#" class="page-select">1</a>
-						</li>
-						<li class="page-item">
-							<a href="#" class="page-select">2</a>
-						</li>
-						<li class="page-item">
-							<a href="#" class="page-select active">3</a>
-						</li>
-						<li class="page-item">
-							<a href="#" class="page-select">4</a>
-						</li>
-						<li class="page-item">
-							<a href="#" class="page-select">5</a>
-						</li>
-						<li class="page-item">
-							<a href="#" class="page-select">...</a>
-						</li>
-						<li class="page-item">
-							<a href="#" class="page-select">100</a>
-						</li>
-						<li class="page-item">
-							<a href="#" class="page-select">&gt;</a>
-						</li>
-					</ul>
-					
-				</div>
-			</div>
+			
 		</div>
 		
 		<div id="background-fex"></div>
@@ -214,7 +150,7 @@
 			return this.getItemContent();
 		}
 	});
-	
+	/*header部分*/
 	var Header=React.createClass({
 		render:function(){
 			return (
@@ -265,44 +201,39 @@
 			);
 		}
 	});
+	
 	var Page=React.createClass({
 		render:function(){
 			return(
 				<div className="page-contents-wrap">
-					
+					<SiderBar />
+					<PageContanior />
 				</div>
 			)
 		}
 	});
 	var SiderBar=React.createClass({
+		getInitialState:function(){
+			return ({
+				items: ["全部课程","课程一：静夜思","课程二：红军长征",
+						   "课程三：活字印刷术","课程四：郑和下西洋","课程五：梦想之家"]
+			})
+		},
+		eachItem:function(title,i){
+			return (
+				<SiderBarItem key={i} index={i}>{title}</SiderBarItem>
+			)
+		},
 		render:function(){
 			return (
-				<div classNmae="left-sidebar">
+				<div className="left-sidebar">
 					<div id="left-sidebar-title">
 						课程列表
 					</div>
 					<ul id="left-sidebar-list">
-						
-						<li class="left-sidebar-item active">
-							<span class="fa fa-book"></span>
-							课程一：静夜思
-						</li>
-						<li class="left-sidebar-item">
-							<span class="fa fa-book"></span>
-							课程二：红军长征
-						</li>
-						<li class="left-sidebar-item">
-							<span class="fa fa-book"></span>
-							课程三：活字印刷术
-						</li>
-						<li class="left-sidebar-item">
-							<span class="fa fa-book"></span>
-							课程四：郑和下西洋
-						</li>
-						<li class="left-sidebar-item">
-							<span class="fa fa-book"></span>
-							课程五：梦想之家
-						</li>
+					{
+							this.state.items.map(this.eachItem)
+					}
 					</ul>
 				</div>
 			)
@@ -314,15 +245,90 @@
 		},
 		render:function(){
 			return (
-				<li className={isActive?"left-sidebar-item active":"left-sidebar-item"}>
+				<li className={this.state.isActive?"left-sidebar-item active":"left-sidebar-item"}>
 					<span className="fa fa-book"></span>
-					全部课程
+					{this.props.children}
 				</li>
 			)
 		}
-	})
+	});
+	var PageContanior=React.createClass({
+		render:function(){
+			return (
+				<div id="detail-contents">
+					{/*详细信息顶部*/}
+					<div id="detail-contents-top">
+						<div id="detail-nav">
+							<ul id="nav-list">
+								<li className="nav-item active">
+									<a href="#">我的作品</a>
+								</li>
+								<li className="nav-item">
+									<a href="#">班级作品</a>
+								</li>
+							</ul>
+							<div id="btn-group">
+								<button type="button" className="btn-works" id="submit-works">
+									<span className="fa fa-upload"></span>
+									提交作品
+								</button>
+								<button type="button" className="btn-works" id="create-works">
+									<span className="fa fa-plus-circle"></span>
+									新建作品
+								</button>
+							</div>			
+						</div>
+						
+						<div className="user-search-box">
+							<div id="user-search">
+								<input type="text" name="search-text" id="search-text" placeholder="搜索资源"/>
+								<span className="fa fa-search"></span>
+								<button type="button" id="btn-search">搜索</button>
+							</div>
+						</div>
+						<div id="work-list">
+							<WorkItem />
+						</div>
+						<ul className="page-list">
+							<li className="page-item">
+								<a href="#" className="page-select">&lt;</a>
+							</li>
+							<li className="page-item">
+								<a href="#" className="page-select">1</a>
+							</li>
+							<li className="page-item">
+								<a href="#" className="page-select">2</a>
+							</li>
+							<li className="page-item">
+								<a href="#" className="page-select active">3</a>
+							</li>
+							<li className="page-item">
+								<a href="#" className="page-select">4</a>
+							</li>
+							<li className="page-item">
+								<a href="#" className="page-select">5</a>
+							</li>
+							<li className="page-item">
+								<a href="#" className="page-select">...</a>
+							</li>
+							<li className="page-item">
+								<a href="#" className="page-select">100</a>
+							</li>
+							<li className="page-item">
+								<a href="#" className="page-select">&gt;</a>
+							</li>
+						</ul>
+						
+					</div>
+				</div>
+			)
+		}
+});
+    var bodyStyle={
+    	"height":"100%"
+    };
 	ReactDOM.render(
-		<div>
+		<div style={bodyStyle} id="body">
 			<Header />
 			<Page />
 		</div>,
