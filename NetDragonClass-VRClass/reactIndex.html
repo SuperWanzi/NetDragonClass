@@ -12,60 +12,8 @@
 	</head>
 	<body>
 		
-		<div id="background-fex"></div>
 		
-		<div class="modal-submit" id="modal-main">
-			
-			<div class="modal-submit-box">
-				
-				<div id="modal-submit-main">
-					<div class="modal-main-title" >
-						新建作品
-						<span class="closeModal fa fa-times"></span>
-					</div>
-					<form class="modal-main-content" action="" method="post">
-						<div class="sub-main-input">
-							<span class="input-title">资源名称</span>
-							<span class="input-text"><input type="text" name="name" id="ip-name" 
-							 placeholder="请输入资源名称"/></span>
-						</div>
-						<div class="sub-main-input" id="input-a">
-							<span class="input-title">作者</span>
-							<span class="input-text">
-								<div class="input-author">
-									<div class="author-item">
-										<span class="author-name">李明</span>
-										<span class="fa fa-times remove-authot"></span>
-									</div>
-								</div>
-								<div id="add-author">
-									<span class="fa fa-plus-circle"></span>
-								</div>
-							</span>
-						</div>
-						<div class="sub-main-input">
-							<span class="input-title">配图</span>
-							<span class="input-text"><input type="text" name="image" id="ip-image"  
-							 placeholder="点击上传图片" readonly/></span>
-							<input style="display: none;" type="file" name="image-file" id="ipf-image"/>
-						</div>
-						<div class="sub-main-input">
-							<span class="input-title">简介</span>
-							<span class="input-text">
-								<textarea name="about" id="ta-about"></textarea>
-							</span>
-						</div>
-						
-						<div class="sub-main-submit">
-							<input type="submit" name="fm-submit" id="fm-submit" value="确定提交" 
-								onclick="return false;"/>
-							<p>提交后显示在班级作品区</p>
-						</div>
-					</form>
-				</div>
-			
-			</div>
-		</div>
+		
 		
 		<div class="modal-submit" id="modal-author">
 			<div class="modal-submit-box">
@@ -290,6 +238,7 @@
 				<div id="detail-contents">
 					{/*详细信息顶部*/}
 					<div id="detail-contents-top">
+						
 						<DetailNav />
 						<SearchItem />
 						<div id="work-list">
@@ -324,13 +273,17 @@
 								<a href="#" className="page-select">&gt;</a>
 							</li>
 						</ul>
-						
 					</div>
+					<Fex state="block" zindex="0" />
+					<FormWork />
 				</div>
 			)
 		}
 	});
 	var DetailNav=React.createClass({
+		showForm:function(){
+			this.props.showForm();
+		},
 		render:function(){
 			return (
 				<div id="detail-nav">
@@ -351,11 +304,12 @@
 							<span className="fa fa-plus-circle"></span>
 							新建作品
 						</button>
-					</div>			
+					</div>
 				</div>
 			)
 		}
 	});
+	
 	var SearchItem=React.createClass({
 		render:function(){
 			return (
@@ -369,8 +323,82 @@
 			)
 		}
 	})
-	
-
+	var Fex=React.createClass({
+		getInitialState:function(){
+			return (
+				{zindex:0}
+			)
+		},
+		getStyle:function(){
+			var fexStyle={
+				'z-index':'99',
+				'display':'block'
+			};
+			return fexStyle;
+		},
+		render:function(){
+			var zindex=this.props.zindex;
+			var state=this.props.state;
+			console.log(state)
+			return (
+				<div id="background-fex" style={this.getStyle()}></div>
+			)
+		}
+	});
+	var FormWork=React.createClass({
+		render:function(){
+			return (
+				<div className="modal-submit" id="modal-main" style={{ 'display': 'flex'}}>
+					<div className="modal-submit-box">
+						<div id="modal-submit-main">
+							<div className="modal-main-title">
+								新建作品
+								<span className="closeModal fa fa-times"></span>
+							</div>
+							<form className="modal-main-content" action="#" method="post">
+								<div className="sub-main-input">
+									<span className="input-title">资源名称</span>
+									<span className="input-text">
+										<input type="text" name="name" id="ip-name" placeholder="请输入资源名称"/>
+									</span>
+								</div>
+								<div className="sub-main-input" id="input-a">
+									<span className="input-title">作者</span>
+									<span className="input-text">
+										<div className="input-author">
+											<div className="author-item">
+												<span className="author-name">李明</span>
+												<span className="fa fa-times remove-authot"></span>
+											</div>
+										</div>
+										<div id="add-author">
+											<span className="fa fa-plus-circle"></span>
+										</div>
+									</span>
+								</div>
+								<div className="sub-main-input">
+									<span className="input-title">配图</span>
+									<span className="input-text">
+										<input type="text" name="image" id="ip-image" placeholder="点击上传图片" readOnly/></span>
+									<input style={{ "display": "none"}} type="file" name="image-file" id="ipf-image" />
+								</div>
+								<div className="sub-main-input">
+									<span className="input-title">简介</span>
+									<span className="input-text">
+										<textarea name="about" id="ta-about"></textarea>
+									</span>
+								</div>
+								<div className="sub-main-submit">
+									<input type="submit" name="fm-submit" id="fm-submit" defaultValue="确定提交" />
+									<p>提交后显示在班级作品区</p>
+								</div>
+							</form>
+						</div>
+					</div>
+				</div>
+			)
+		}
+	});
 	ReactDOM.render(
 		<div id="body">
 			<Header />
