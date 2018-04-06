@@ -395,8 +395,6 @@
 			fileName=fileName[fileName.length-1];
 			var fileNameFormat=fileName.split(".");
 			fileNameFormat=fileNameFormat[fileNameFormat.length-1];
-			console.log(fileName);
-			console.log(fileNameFormat);
 			for(var i in format){
 				if(fileNameFormat.indexOf(format[i])>=0){
 					this.setState(
@@ -439,6 +437,17 @@
 				{authorState:false}
 			)
 		},
+		getObjectURL:function(file) {
+			var url = null ;
+			if (window.createObjectURL!=undefined) { // basic
+				url = window.createObjectURL(file) ;
+			} else if (window.URL!=undefined) { // mozilla(firefox)
+				url = window.URL.createObjectURL(file) ;
+			} else if (window.webkitURL!=undefined) { // webkit or chrome
+				url = window.webkitURL.createObjectURL(file) ;
+			}
+			return url ;
+		},
 		submit:function(){
 			var content=this.state.content;
 			if(this.refs.ipName.value){
@@ -446,7 +455,7 @@
 				if(this.state.author.length>0){
 					content.author=this.state.author;
 					if(this.state.isImg){
-						content.img=this.refs.imgFile;
+						content.img=this.getObjectURL(this.refs.imgFile.files[0]);
 						content.about=this.refs.taAbout;
 						this.setState(
 							{content:content}
