@@ -534,7 +534,7 @@ body.hide{
 	flex-direction: column;
 	width: 100%;
 }
-.sub-main-submit input{
+.sub-main-submit input,.sub-main-submit button{
 	background: #17aafa;
 	color: #fff;
 	width: 100px;

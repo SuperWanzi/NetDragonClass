@@ -11,44 +11,6 @@
     	<script src="js/lib/browser.min.js"></script>
 	</head>
 	<body>
-		
-		
-		
-		
-		<div class="modal-submit" id="modal-author">
-			<div class="modal-submit-box">
-				<div id="modal-submit-author">
-					<div class="modal-main-title">
-						班级成员
-						<span class="closeModal fa fa-times"></span>
-					</div>
-					<div class="modal-main-content">
-						<div class="left-select">
-							<div class="serch-student">
-								<input type="text" id="in-search-stu" placeholder="搜索人名" />
-								<span class="fa fa-search"></span>
-							</div>
-							<select id="dataAuthor" class="select-stu" multiple="multiple">
-								
-							</select>
-						</div>
-						<div class="menu-ctrl">
-							<button type="button" class="btn-crtl active" id="btn-add">添加</button>
-							<button type="button" class="btn-crtl" id="btn-remove">删除</button>
-						</div>
-						<div class="right-select">
-							<select id="selectAuthor" class="select-stu" multiple="multiple">
-								
-							</select>
-						</div>
-						<div class="sub-main-submit author">
-							<button type="button" class="btn-crtl active" id="add-confirm">确定</button>
-						</div>
-					</div>
-				</div>
-			</div>	
-		</div>
-	
 	</body>
 </html>
 <script type="text/javascript">
@@ -233,13 +195,42 @@
 		}
 	});
 	var PageContanior=React.createClass({
+		getInitialState:function(){
+			return {
+				mainState:true
+			}
+		},
+		getModalStateMain:function(){
+			if(this.state.mainState){
+				return "flex"
+			}else{
+				return "none"
+			}
+		},
+		getFexState:function(){
+			if(this.state.mainState){
+				return "block"
+			}else{
+				return "none"
+			}
+		},
+		showForm:function(){
+			this.setState({
+				mainState:true
+			})
+		},
+		closeMain:function(){
+			this.setState({
+				mainState:false
+			})
+		},
 		render:function(){
 			return (
 				<div id="detail-contents">
 					{/*详细信息顶部*/}
 					<div id="detail-contents-top">
 						
-						<DetailNav />
+						<DetailNav showForm={this.showForm}/>
 						<SearchItem />
 						<div id="work-list">
 							<WorkItem />
@@ -274,8 +265,8 @@
 							</li>
 						</ul>
 					</div>
-					<Fex state="block" zindex="0" />
-					<FormWork />
+					<Fex state={this.getFexState()} zindex="0" />
+					<FormWork closeMain={this.closeMain} state={this.getModalStateMain()}/>
 				</div>
 			)
 		}
@@ -300,7 +291,7 @@
 							<span className="fa fa-upload"></span>
 							提交作品
 						</button>
-						<button type="button" className="btn-works" id="create-works">
+						<button type="button" className="btn-works" id="create-works" onClick={this.showForm}>
 							<span className="fa fa-plus-circle"></span>
 							新建作品
 						</button>
@@ -332,7 +323,7 @@
 		getStyle:function(){
 			var fexStyle={
 				'z-index':'99',
-				'display':'block'
+				'display':this.props.state
 			};
 			return fexStyle;
 		},
@@ -346,14 +337,69 @@
 		}
 	});
 	var FormWork=React.createClass({
-		render:function(){
+		getInitialState:function(){
+			return {
+				author:[],
+				authorState:false
+			}
+		},
+		removeAuthor:function(key,value){
+			var arr=this.state.author;
+			arr.splice(key,1);
+			this.setState(arr);
+		},
+		showAuthor:function(text,i){
 			return (
-				<div className="modal-submit" id="modal-main" style={{ 'display': 'flex'}}>
+				<div className="author-item" key={i} index={i}>
+					<span className="author-name">{text}</span>
+					<span className="fa fa-times remove-authot" onClick={this.removeAuthor.bind(this,i)}></span>
+				</div>
+			)
+		},
+		selectFile:function(){
+			document.getElementById("ipf-image").click();
+		},
+		checkFile:function(){
+			
+		},
+		closeModal:function(){
+			this.props.closeMain()
+		},
+		getFexState:function(){
+			if(this.state.authorState){
+				return "block"
+			}else{
+				return "none"
+			}
+		},
+		getStateAuthor:function(){
+			if(this.state.authorState){
+				return "flex"
+			}else{
+				return "none"
+			}
+		},
+		showAuthorForm:function(){
+			this.setState(
+				{authorState:true}
+			)
+		},
+		hideAuthorForm:function(){
+			this.setState(
+				{authorState:false}
+			)
+		},
+		render:function(){
+			var mainStyle={
+				'display':this.props.state
+			}
+			return (
+				<div className="modal-submit" id="modal-main" style={mainStyle}>
 					<div className="modal-submit-box">
 						<div id="modal-submit-main">
 							<div className="modal-main-title">
 								新建作品
-								<span className="closeModal fa fa-times"></span>
+								<span className="closeModal fa fa-times" onClick={this.closeModal}></span>
 							</div>
 							<form className="modal-main-content" action="#" method="post">
 								<div className="sub-main-input">
@@ -366,21 +412,18 @@
 									<span className="input-title">作者</span>
 									<span className="input-text">
 										<div className="input-author">
-											<div className="author-item">
-												<span className="author-name">李明</span>
-												<span className="fa fa-times remove-authot"></span>
-											</div>
+											{this.state.author.map(this.showAuthor)}
 										</div>
 										<div id="add-author">
-											<span className="fa fa-plus-circle"></span>
+											<span className="fa fa-plus-circle" onClick={this.showAuthorForm}></span>
 										</div>
 									</span>
 								</div>
 								<div className="sub-main-input">
 									<span className="input-title">配图</span>
 									<span className="input-text">
-										<input type="text" name="image" id="ip-image" placeholder="点击上传图片" readOnly/></span>
-									<input style={{ "display": "none"}} type="file" name="image-file" id="ipf-image" />
+										<input type="text" name="image" id="ip-image" placeholder="点击上传图片" readOnly onClick={this.selectFile}/></span>
+									<input style={{ "display": "none"}} type="file" name="image-file" id="ipf-image" onChange={this.checkFile}/>
 								</div>
 								<div className="sub-main-input">
 									<span className="input-title">简介</span>
@@ -389,13 +432,62 @@
 									</span>
 								</div>
 								<div className="sub-main-submit">
-									<input type="submit" name="fm-submit" id="fm-submit" defaultValue="确定提交" />
+									{/*<input type="submit" name="fm-submit" id="fm-submit" defaultValue="确定提交" />*/}
+									<button type="button" id="fm-submit">确定提交</button>
 									<p>提交后显示在班级作品区</p>
 								</div>
 							</form>
+							<Fex state={this.getFexState()}/>
+							<FormAuthor state={this.getStateAuthor()} hideAuthorForm={this.hideAuthorForm}/>
 						</div>
 					</div>
 				</div>
+			)
+		}
+	});
+	var FormAuthor=React.createClass({
+		hideAuthorForm:function(){
+			this.props.hideAuthorForm()
+		},
+		render:function(){
+			var mainStyle={
+				'display':this.props.state
+			}
+			return (	
+				<div className="modal-submit" id="modal-author" style={mainStyle}>
+					<div className="modal-submit-box">
+						<div id="modal-submit-author">
+							<div className="modal-main-title">
+								班级成员
+								<span className="closeModal fa fa-times" onClick={this.hideAuthorForm}></span>
+							</div>
+							<div className="modal-main-content">
+								<div className="left-select">
+									<div className="serch-student">
+										<input type="text" id="in-search-stu" placeholder="搜索人名" />
+										<span className="fa fa-search"></span>
+									</div>
+									<select id="dataAuthor" className="select-stu" multiple="multiple">
+						
+									</select>
+								</div>
+								<div className="menu-ctrl">
+									<button type="button" className="btn-crtl active" id="btn-add">添加</button>
+									<button type="button" className="btn-crtl" id="btn-remove">删除</button>
+								</div>
+								<div className="right-select">
+									<select id="selectAuthor" className="select-stu" multiple="multiple">
+						
+									</select>
+								</div>
+								<div className="sub-main-submit author">
+									<button type="button" className="btn-crtl active" id="add-confirm">确定</button>
+								</div>
+							</div>
+						</div>
+					</div>
+				</div>
+				
 			)
 		}
 	});
