@@ -88,7 +88,7 @@ header{
 }
 /*页面内容*/
 .page-contents-wrap{
-	min-height: calc(100% - 64px);
+	height: calc(100% - 64px);
 	overflow: hidden;
 }
 /*侧边导航栏*/
@@ -141,6 +141,7 @@ header{
 #detail-contents{
 	float: left;
 	width: calc(100% - 265px);
+	height:100%;
 }
 /*导航栏及菜单*/
 #detail-nav{
@@ -247,7 +248,8 @@ header{
 }
 
 #work-list{
-	overflow: hidden;
+	overflow: scroll;
+	height: calc(100% - 136px - 50px );
 }
 .work-item{
 	width: 280px;
