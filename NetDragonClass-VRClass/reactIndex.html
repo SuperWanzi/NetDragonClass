@@ -18,7 +18,6 @@
 		var contentHeight=document.getElementsByClassName("page-contents-wrap")[0].offsetHeight;
 		var nav=document.getElementsByClassName("left-sidebar")[0];
 		nav["style"]["height"]=contentHeight+"px";
-		console.log("!")
 	}
 	window.onload=function(){
 		setNavHeight();
@@ -30,14 +29,22 @@
 
 <script type="text/babel">
 	var WorkItem = React.createClass({
+		getAuthorInfo:function(){
+			var str="";
+			for(var i in this.props.content.author){
+				str=str+this.props.content.author[i]+"、"
+			}
+			return str.substring(0,str.length-1);
+			
+		},
 		getItemContent: function() {
 			return(
 				<div className="work-item">
 					<div className="item-view">
-						<img src="img/u=3827902191,936378654&fm=206&gp=0.jpg" title="李冉、涂佳佳、李婷、张婷、张三、李四、王小明、张三丰黎明" />
+						<img src={this.props.content.img} title={this.props.content.about} />
 						<div className="author-info">
 							<span className="fa fa-user-circle-o"></span>
-							<span className="author-name">李冉、涂佳佳、李婷、张婷、张三、李四、王小明、张三丰黎明</span>
+							<span className="author-name">{this.getAuthorInfo()}</span>
 							<span className="create-time">2016/08/04 10:55</span>
 						</div>
 					</div>
@@ -56,7 +63,7 @@
 						</a>
 					</div>
 					<div className="works-title">
-						郑和下西洋
+						{this.props.content.title}
 					</div>
 				</div>
 			)
@@ -196,9 +203,23 @@
 	});
 	var PageContanior=React.createClass({
 		getInitialState:function(){
+			var obj={
+				title:"郑和下西洋",
+				author:["李冉","涂佳佳","李婷","张婷","张三","李四","王小明"],
+				img:"img/u=3827902191,936378654&fm=206&gp=0.jpg",
+				about:"李冉、涂佳佳、李婷、张婷、张三、李四、王小明、张三丰黎明"
+			};
 			return {
-				mainState:true
+				mainState:true,
+				workItem:[obj]
 			}
+		},
+		initShow:function(){
+			var wi=this.state.workItem;
+			
+			this.setState(
+				{workItem:wi}
+			)
 		},
 		getModalStateMain:function(){
 			if(this.state.mainState){
@@ -224,16 +245,27 @@
 				mainState:false
 			})
 		},
+		getItems:function(value,i){
+			return (
+				<WorkItem key={i} index={i} content={value}/>
+			)
+		},
+		addItem:function(obj){
+			var wi=this.state.workItem;
+			wi.push(obj);
+			this.setState(
+				{workItem:wi}
+			)
+		},
 		render:function(){
 			return (
 				<div id="detail-contents">
 					{/*详细信息顶部*/}
 					<div id="detail-contents-top">
-						
 						<DetailNav showForm={this.showForm}/>
 						<SearchItem />
 						<div id="work-list">
-							<WorkItem />
+							{this.state.workItem.map(this.getItems)}
 						</div>
 						<ul className="page-list">
 							<li className="page-item">
@@ -266,7 +298,7 @@
 						</ul>
 					</div>
 					<Fex state={this.getFexState()} zindex="0" />
-					<FormWork closeMain={this.closeMain} state={this.getModalStateMain()}/>
+					<FormWork closeMain={this.closeMain} state={this.getModalStateMain()} addItem={this.addItem}/>
 				</div>
 			)
 		}
@@ -328,9 +360,6 @@
 			return fexStyle;
 		},
 		render:function(){
-			var zindex=this.props.zindex;
-			var state=this.props.state;
-			console.log(state)
 			return (
 				<div id="background-fex" style={this.getStyle()}></div>
 			)
@@ -340,13 +369,14 @@
 		getInitialState:function(){
 			return {
 				author:[],
-				authorState:false
+				authorState:false,
+				content:{},
+				isImg:false
 			}
 		},
 		removeAuthor:function(key,value){
-			var arr=this.state.author;
-			arr.splice(key,1);
-			this.setState(arr);
+			this.refs.removeBtn.removeTo(key);
+			this.refs.removeBtn.save();
 		},
 		showAuthor:function(text,i){
 			return (
@@ -360,6 +390,21 @@
 			document.getElementById("ipf-image").click();
 		},
 		checkFile:function(){
+			var format=["png","jpg","bmp"];
+			var fileName=this.refs.imgFile.value.split("\\");
+			fileName=fileName[fileName.length-1];
+			var fileNameFormat=fileName.split(".");
+			fileNameFormat=fileNameFormat[fileNameFormat.length-1];
+			console.log(fileName);
+			console.log(fileNameFormat);
+			for(var i in format){
+				if(fileNameFormat.indexOf(format[i])>=0){
+					this.setState(
+						{isImg:true}
+					);
+					this.refs.ipImg.value=fileName;
+				}
+			}
 			
 		},
 		closeModal:function(){
@@ -384,10 +429,48 @@
 				{authorState:true}
 			)
 		},
+		saveAuthor:function(data){
+			this.setState(
+				{author:data}
+			)
+		},
 		hideAuthorForm:function(){
 			this.setState(
 				{authorState:false}
 			)
+		},
+		submit:function(){
+			var content=this.state.content;
+			if(this.refs.ipName.value){
+				content.title=this.refs.ipName.value;
+				if(this.state.author.length>0){
+					content.author=this.state.author;
+					if(this.state.isImg){
+						content.img=this.refs.imgFile;
+						content.about=this.refs.taAbout;
+						this.setState(
+							{content:content}
+						);
+						alert("添加成功");
+						this.props.addItem(this.state.content);
+						this.refs.ipName.value="";
+						this.refs.imgFile.value="";
+						this.refs.ipImg.value="";
+						this.refs.taAbout="";
+						this.state.content={};
+						this.props.closeMain();
+					}
+					else{
+						alert("图片格式不支持,请重新上传");
+					}
+				}
+				else{
+					alert("没有选择作者");
+				}
+			}
+			else{
+				alert("未填写标题");
+			}
 		},
 		render:function(){
 			var mainStyle={
@@ -405,7 +488,7 @@
 								<div className="sub-main-input">
 									<span className="input-title">资源名称</span>
 									<span className="input-text">
-										<input type="text" name="name" id="ip-name" placeholder="请输入资源名称"/>
+										<input type="text" name="name" id="ip-name" placeholder="请输入资源名称" ref="ipName"/>
 									</span>
 								</div>
 								<div className="sub-main-input" id="input-a">
@@ -422,23 +505,26 @@
 								<div className="sub-main-input">
 									<span className="input-title">配图</span>
 									<span className="input-text">
-										<input type="text" name="image" id="ip-image" placeholder="点击上传图片" readOnly onClick={this.selectFile}/></span>
-									<input style={{ "display": "none"}} type="file" name="image-file" id="ipf-image" onChange={this.checkFile}/>
+										<input type="text" name="image" id="ip-image" placeholder="点击上传图片" readOnly onClick={this.selectFile}
+											ref="ipImg" /></span>
+									<input style={{ "display": "none"}} type="file" name="image-file" id="ipf-image" onChange={this.checkFile}
+										ref="imgFile"/>
 								</div>
 								<div className="sub-main-input">
 									<span className="input-title">简介</span>
 									<span className="input-text">
-										<textarea name="about" id="ta-about"></textarea>
+										<textarea name="about" id="ta-about" ref="taAbout"></textarea>
 									</span>
 								</div>
 								<div className="sub-main-submit">
 									{/*<input type="submit" name="fm-submit" id="fm-submit" defaultValue="确定提交" />*/}
-									<button type="button" id="fm-submit">确定提交</button>
+									<button type="button" id="fm-submit" onClick={this.submit}>确定提交</button>
 									<p>提交后显示在班级作品区</p>
 								</div>
 							</form>
 							<Fex state={this.getFexState()}/>
-							<FormAuthor state={this.getStateAuthor()} hideAuthorForm={this.hideAuthorForm}/>
+							<FormAuthor state={this.getStateAuthor()} hideAuthorForm={this.hideAuthorForm} saveAuthor={this.saveAuthor}
+								ref="removeBtn" />
 						</div>
 					</div>
 				</div>
@@ -446,6 +532,78 @@
 		}
 	});
 	var FormAuthor=React.createClass({
+		getInitialState:function(){
+			return (
+				{
+					authorData:["李明","张三丰","吴老二","李四","周杰伦","斯琴","王小二"],
+					authorList:[]
+				}
+			)
+		},
+		showData:function(value,i){
+			return (
+				<option key={i} value={i}>
+					{value}
+				</option>
+			)
+		},
+		add:function(){
+			var i=this.refs.authorDataVal.value;
+			if(i){
+				var data=this.state.authorData;
+				var list=this.state.authorList;
+				list.push(data[i]);
+				data.splice(i,1);
+				this.setState(
+					{
+						authorData:data,
+						authorList:list
+					}
+				)
+			}else{
+				alert("没有选中对象或对象不存在");
+			}
+		},
+		removeTo:function(index){
+			if(index!==null&&index!==undefined){
+				var i=index;
+			}
+			if(i!==null&&i!==undefined){
+				var data=this.state.authorData;
+				var list=this.state.authorList;
+				data.push(list[i]);
+				list.splice(i,1);
+				this.setState(
+					{
+						authorData:data,
+						authorList:list
+					}
+				)
+			}else{
+				alert("没有选中对象或对象不存在");
+			}
+		},
+		remove:function(){
+			var i=this.refs.authorListVal.value;
+			if(i){
+				var data=this.state.authorData;
+				var list=this.state.authorList;
+				data.push(list[i]);
+				list.splice(i,1);
+				this.setState(
+					{
+						authorData:data,
+						authorList:list
+					}
+				)
+			}else{
+				alert("没有选中对象或对象不存在");
+			}
+		},
+		save:function(){
+			this.props.saveAuthor(this.state.authorList);
+			this.props.hideAuthorForm();
+		},
 		hideAuthorForm:function(){
 			this.props.hideAuthorForm()
 		},
@@ -467,21 +625,21 @@
 										<input type="text" id="in-search-stu" placeholder="搜索人名" />
 										<span className="fa fa-search"></span>
 									</div>
-									<select id="dataAuthor" className="select-stu" multiple="multiple">
-						
+									<select id="dataAuthor" className="select-stu" multiple="multiple" ref="authorDataVal">
+										{this.state.authorData.map(this.showData)}
 									</select>
 								</div>
 								<div className="menu-ctrl">
-									<button type="button" className="btn-crtl active" id="btn-add">添加</button>
-									<button type="button" className="btn-crtl" id="btn-remove">删除</button>
+									<button type="button" className="btn-crtl active" id="btn-add" onClick={this.add}>添加</button>
+									<button type="button" className="btn-crtl" id="btn-remove" onClick={this.remove}>删除</button>
 								</div>
 								<div className="right-select">
-									<select id="selectAuthor" className="select-stu" multiple="multiple">
-						
+									<select id="selectAuthor" className="select-stu" multiple="multiple" ref="authorListVal">
+										{this.state.authorList.map(this.showData)}
 									</select>
 								</div>
 								<div className="sub-main-submit author">
-									<button type="button" className="btn-crtl active" id="add-confirm">确定</button>
+									<button type="button" className="btn-crtl active" id="add-confirm" onClick={this.save}>确定</button>
 								</div>
 							</div>
 						</div>
@@ -498,5 +656,4 @@
 		</div>,
 		document.getElementsByTagName("body")[0]
 	);
-	
 </script>
