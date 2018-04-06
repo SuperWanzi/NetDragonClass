@@ -1,5 +1,9 @@
-	
+	/*
+	 * 组件名称:WorkItem
+	 * 说明:展示单项课程
+	 */
 	var WorkItem = React.createClass({
+		/* 从数组中拼接作者信息 */
 		getAuthorInfo:function(){
 			var str="";
 			for(var i in this.props.content.author){
@@ -43,7 +47,10 @@
 			return this.getItemContent();
 		}
 	});
-	/*header部分*/
+	/*
+	 * 组件名称:Header
+	 * 说明:页面头部:LOGO和用户信息
+	 */
 	var Header=React.createClass({
 		render:function(){
 			return (
@@ -54,6 +61,10 @@
 			);
 		}
 	});
+	/*
+	 * 组件名称:Logo
+	 * 说明:展示网站Logo
+	 */
 	var Logo=React.createClass({
 		render:function(){
 			return (
@@ -64,6 +75,10 @@
 			)
 		}
 	});
+	/*
+	 * 组件名称:HeaderRight
+	 * 说明:展示头部右方的用户信息等信息
+	 */
 	var HeaderRight=React.createClass({
 		render:function(){
 			var spanStyle = {
@@ -94,7 +109,10 @@
 			);
 		}
 	});
-	
+	/*
+	 * 组件名称:Page
+	 * 说明:展示页面主体内容
+	 */
 	var Page=React.createClass({
 		render:function(){
 			return(
@@ -105,6 +123,10 @@
 			)
 		}
 	});
+	/*
+	 * 组件名称:SiderBar
+	 * 说明:页面侧边导航栏
+	 */
 	var SiderBar=React.createClass({
 		getInitialState:function(){
 			return ({
@@ -156,6 +178,10 @@
 			)
 		}
 	});
+	/*
+	 * 组件名称:SiderBarItem
+	 * 说明:页面侧边导航栏-导航按钮
+	 */
 	var SiderBarItem=React.createClass({
 		getInitialState:function(){
 			return ({isActive:false})
@@ -172,6 +198,10 @@
 			)
 		}
 	});
+	/*
+	 * 组件名称:PageContanior
+	 * 说明:页面主要内容区
+	 */
 	var PageContanior=React.createClass({
 		getInitialState:function(){
 			var obj={
@@ -275,6 +305,10 @@
 			)
 		}
 	});
+	/*
+	 * 组件名称:DetailNav
+	 * 说明:页面主要内容区的导航栏
+	 */
 	var DetailNav=React.createClass({
 		showForm:function(){
 			this.props.showForm();
@@ -304,7 +338,10 @@
 			)
 		}
 	});
-	
+	/*
+	 * 组件名称:SearchItem
+	 * 说明:搜索框
+	 */
 	var SearchItem=React.createClass({
 		render:function(){
 			return (
@@ -318,6 +355,10 @@
 			)
 		}
 	});
+	/*
+	 * 组件名称:Fex
+	 * 说明:页面静态遮罩
+	 */
 	var Fex=React.createClass({
 		getInitialState:function(){
 			return (
@@ -337,6 +378,10 @@
 			)
 		}
 	});
+	/*
+	 * 组件名称:FormWork
+	 * 说明:增加文章表单
+	 */
 	var FormWork=React.createClass({
 		getInitialState:function(){
 			return {
@@ -512,6 +557,10 @@
 			)
 		}
 	});
+	/*
+	 * 组件名称:FormAuthor
+	 * 说明:修改作者信息
+	 */
 	var FormAuthor=React.createClass({
 		getInitialState:function(){
 			return (
@@ -630,6 +679,9 @@
 			)
 		}
 	});
+	/*
+	 * 将组件添加至页面中
+	 */
 	ReactDOM.render(
 		<div id="body">
 			<Header />
